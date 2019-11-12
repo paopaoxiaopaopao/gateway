@@ -1,35 +1,17 @@
 package com.paopao.mycloud;
 
-import java.util.EventListener;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.jasig.cas.client.authentication.AuthenticationFilter;
-import org.jasig.cas.client.session.SingleSignOutFilter;
-import org.jasig.cas.client.session.SingleSignOutHttpSessionListener;
-import org.jasig.cas.client.util.HttpServletRequestWrapperFilter;
-import org.jasig.cas.client.validation.Cas30ProxyReceivingTicketValidationFilter;
-import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
-import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.context.annotation.Bean;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @SpringBootApplication
-@MapperScan("com.paopao.mycloud.dao")
-@EnableFeignClients
-public class DemoApplication {
+@EnableEurekaClient
+public class GatewayApplication {
 
 	// @Value("${casServerUrlPrefix}")
 	// private String casServerUrlPrefix;
@@ -43,15 +25,15 @@ public class DemoApplication {
 	// @Value(value = "${cas-ignore-patterns}")
 	// private String casIgnorePatterns;
 
-	private static Logger logger = LoggerFactory.getLogger(DemoApplication.class);
+	private static Logger logger = LoggerFactory.getLogger(GatewayApplication.class);
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(GatewayApplication.class, args);
 	}
 
 	@GetMapping("test")
-	public String test(HttpServletRequest request, HttpServletResponse response) {
-		String id = request.getSession(false).getId();
+	public String test() {
+		String id = "asdf";
 		return "sessionid: " + id;
 	}
 	//
